@@ -1,12 +1,176 @@
-/* Compute Market Monitor: dense infrastructure pricing console. */
-:root { --bg:#071016; --bg-elev-1:#0c1820; --bg-elev-2:#11222c; --bg-elev-3:#18313d; --border:#203c49; --border-strong:#315667; --text:#e4f2f5; --text-muted:#8bacb7; --text-dim:#668793; --accent:#32c7b5; --accent-dim:#1a8e82; --accent-bg:rgba(50,199,181,.1); --focus:#32c7b5; --r:0; }
-html,body { overflow-x:hidden; }
-body::before { background:linear-gradient(90deg,rgba(50,199,181,.025) 1px,transparent 1px),linear-gradient(rgba(50,199,181,.02) 1px,transparent 1px); background-size:32px 32px; }
-.app { max-width:1680px; padding:0 20px 38px; }
-.ticker-tape-wrap { border-inline:1px solid var(--border); }
-.term-strip { border:0; border-bottom:1px solid var(--border-strong); margin:0 -20px 22px; padding-inline:20px; }
-.app-header { border-bottom:0; padding:12px 0 18px; }
-.app-header h1 { font-size:18px; letter-spacing:.02em; text-transform:none; }
-.hero { background:linear-gradient(110deg,#102a35,#08151c 62%); border:1px solid var(--border-strong); border-radius:0; }
-.hero-h { font-size:clamp(32px,5vw,68px); letter-spacing:-.04em; text-transform:none; }
-.section,.controls-block { border-radius:0; }
+/* Compute Market Monitor — dense capacity-market terminal. */
+:root {
+  --bg: #05090a;
+  --bg-elev-1: #081012;
+  --bg-elev-2: #0c1719;
+  --bg-elev-3: #122124;
+  --border: #173033;
+  --border-strong: #285156;
+  --text: #daf4ee;
+  --text-muted: #76a39b;
+  --text-dim: #50736e;
+  --accent: #35e6b2;
+  --accent-dim: #16966f;
+  --accent-bg: rgba(53, 230, 178, 0.09);
+  --warn: #ffb347;
+  --danger: #ff5f5f;
+  --focus: #35e6b2;
+  --font-sans: "Space Mono", ui-monospace, monospace;
+  --font-mono: "Space Mono", ui-monospace, monospace;
+  --r: 0;
+}
+html,
+body {
+  background: var(--bg);
+  overflow-x: hidden;
+}
+body::before {
+  background:
+    linear-gradient(90deg, rgba(53, 230, 178, 0.025) 1px, transparent 1px),
+    linear-gradient(rgba(53, 230, 178, 0.02) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+.app {
+  max-width: 1900px;
+  padding: 0 16px 42px;
+}
+.ticker-tape-wrap {
+  margin: 0;
+  border-inline: 1px solid var(--border);
+  border-top: 0;
+  background: #020505;
+}
+.term-strip {
+  margin: 0 0 10px;
+  border-top: 0;
+  border-color: var(--border-strong);
+  background: #0b1618;
+}
+.app-header {
+  margin: 0;
+  padding: 12px 2px;
+  border-bottom: 1px solid var(--border-strong);
+}
+.app-header h1 {
+  font: 700 14px/1 var(--font-mono);
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+.app-header h1::before {
+  content: "CM/";
+  color: var(--accent);
+}
+.hero {
+  min-height: 320px;
+  border: 1px solid var(--border-strong);
+  border-radius: 0;
+  background: linear-gradient(90deg, #091719, #071012);
+}
+.hero::after {
+  content: "CAPACITY / PRICE / AVAILABILITY";
+  position: absolute;
+  right: 18px;
+  top: 14px;
+  color: var(--text-dim);
+  font: 10px var(--font-mono);
+  letter-spacing: 0.14em;
+}
+.hero-grid {
+  grid-template-columns: 1fr 420px;
+  align-items: stretch;
+}
+.hero-text {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.hero-h {
+  font: 700 clamp(38px, 5vw, 76px)/0.95 var(--font-mono);
+  letter-spacing: -0.055em;
+  text-transform: none;
+}
+.hero-sub {
+  max-width: 780px;
+  color: #acd0ca;
+}
+.hero-art {
+  margin: -1px -1px -1px 0;
+  min-height: 318px;
+  border: 0;
+  border-left: 1px solid var(--border-strong);
+  border-radius: 0;
+  background: #030708;
+}
+.controls-block,
+.section {
+  border-radius: 0;
+  border-color: var(--border);
+  background: rgba(8, 16, 18, 0.94);
+  box-shadow: none;
+}
+.section-header {
+  border-bottom-style: dashed;
+}
+.section h2,
+.section h3,
+.section h4 {
+  font-family: var(--font-mono);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+.kpi-strip {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0;
+  border: 1px solid var(--border);
+}
+.kpi-card {
+  border: 0;
+  border-right: 1px solid var(--border);
+  border-radius: 0;
+}
+.main-grid {
+  grid-template-columns: minmax(0, 1fr) 290px;
+  gap: 8px;
+}
+.side-rail {
+  display: grid;
+  gap: 8px;
+}
+.rail-box {
+  border-radius: 0;
+  border-color: var(--border);
+  background: #081012;
+}
+.stocks th {
+  position: sticky;
+  top: 0;
+  background: #0d1b1e;
+  color: #88b5ad;
+}
+.stocks tbody tr:nth-child(even) {
+  background: rgba(53, 230, 178, 0.015);
+}
+.btn {
+  border-radius: 0;
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #02110d;
+  font-weight: 900;
+}
+.strategy-chip,
+.field select {
+  border-radius: 0;
+}
+@media (max-width: 820px) {
+  .hero-grid {
+    grid-template-columns: 1fr;
+  }
+  .hero-art {
+    border-left: 0;
+    border-top: 1px solid var(--border-strong);
+  }
+  .kpi-strip {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
